@@ -24,8 +24,15 @@ def entrar(rol):
 @app.route("/verificar")  # simula "dispositivo nuevo"
 def verificar(): return render_template("verificar.html")
 
-@app.route("/registro")
-def registro(): return render_template("registro.html", roles=ROLES)
+@app.route("/registro", methods=["GET", "POST"])
+def registro():
+    if request.method == "POST":
+        rol = request.form.get("rol")
+        if rol in ROLES:
+            session["rol"] = rol
+            # Redirige directo a la página de inicio de ese rol (ej: /medico/)
+            return redirect(url_for(f"{rol}.inicio"))
+    return render_template("registro.html", roles=ROLES)
 
 @app.route("/ok")  # confirmación estática de cualquier acción
 def ok(): return render_template("ok.html", m=request.args.get("m", "Acción realizada"), back=request.args.get("back", "/"))
