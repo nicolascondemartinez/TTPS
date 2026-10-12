@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block c %}
+<h1>Registro de usuario</h1><div class="card narrow">
+<label>Rol<select>{% for n in roles.values() if n != 'Paciente' %}<option>{{ n }}</option>{% endfor %}</select></label>
+<label>Nombre y apellido<input></label><label>Teléfono<input></label><label>Mail<input></label>
+<label>Matrícula (médico / gerente)<input></label><label>Especialidades<select multiple><option>Genética</option><option>Pediatría</option><option>Clínica médica</option></select></label>
+<label>Provincia que cubre (transportista)<input></label><label>Contraseña<input type="password"></label>
+{{ act('Registrar', 'Usuario registrado') }}</div>
+<p class="muted">Los pacientes se dan de alta desde el panel del Médico tratante y reciben usuario y contraseña por mail.</p>{% endblock %}
